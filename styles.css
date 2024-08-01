@@ -1,0 +1,39 @@
+
+span.pion {
+    font-size: 2.5em;
+    line-height: 20px;
+    margin: 0 -2px;
+    text-shadow: 0 0 2px black;
+}
+.pion.blanc {
+    color: white;
+}
+.pion.rouge {
+    color: red;
+}
+
+main {
+    margin: 80px auto;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+
+.grille {
+    border: 2px solid #6c757d;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.container {
+    margin-top: 20px;
+}
