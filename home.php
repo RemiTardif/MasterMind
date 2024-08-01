@@ -4,16 +4,18 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['difficulte'])) {
     $_SESSION['difficulte'] = $_POST['difficulte'];
     
-    if ($_SESSION['difficulte'] == 'facile') {
+    if ($_SESSION['difficulte'] == 'Facile') {
         $_SESSION['nbEssaisMax'] = 15;
-    } elseif ($_SESSION['difficulte'] == 'moyen') {
+    } elseif ($_SESSION['difficulte'] == 'Moyen') {
         $_SESSION['nbEssaisMax'] = 10;
-    } elseif ($_SESSION['difficulte'] == 'difficile') {
+    } elseif ($_SESSION['difficulte'] == 'Difficile') {
         $_SESSION['nbEssaisMax'] = 5;
     }
-    
+
     header("Location: index.php");
+
 }
+
 ?>
 
 <!doctype html>
@@ -37,12 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['difficulte'])) {
 
         <form method="POST">
             <div class="mb-3">
-                <label  class="form-label">Sélectionnez la difficulté :</label>
-                <select name="difficulte" class="form-select">
+                <label  for="difficulte" class="form-label">Sélectionnez la difficulté :</label>
+                <select name="difficulte" id="difficulte" class="form-select">
                     <option value="Facile">Facile</option>
                     <option value="Moyen">Moyen</option>
                     <option value="Difficile">Difficile</option>
                 </select>
+
             </div>
             <button type="submit" class="btn btn-primary">Commencer le jeu</button>
         </form>

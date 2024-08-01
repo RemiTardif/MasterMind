@@ -79,9 +79,10 @@ if (isset($_POST['reset'])) {
 <body>
     <main class="container mt-5">
         <h1 class="alert alert-primary">MasterMind</h1>
-        <div class="alert alert-info">
+        <div class="alert alert-secondary">
             <h3>Difficulté : <?php echo $difficulte; ?></h3>
             <h5>Vous avez <?php echo $nbEssaisMax; ?> essais ou moins pour gagner la partie</h5>
+            <p>Rappelez vous ! un pion <span class="rouge">rouge</span> par chiffre juste mais mal placé, et un pion <span class="blanc">blanc</span> par chiffre bien placé.</p>
         </div>
 
         <!-- Nombre d'essais du joueur -->

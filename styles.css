@@ -37,3 +37,13 @@ table {
 .container {
     margin-top: 20px;
 }
+
+.rouge{
+    color :red;
+    font-weight: bold;
+}
+
+.blanc{
+    color :white;
+    font-weight: bold;
+}
