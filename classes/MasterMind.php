@@ -1,24 +1,21 @@
 <?php
-class MasterMind {
-
-    //Propriétés
-    private $codeSecret;
-    private $codeJoueur;
-    private $taillePlateau = 4;
+require_once 'Jeu.php';
+class MasterMind extends Jeu{
 
     //Constructeur
-    public function __construct(){
+    public function __construct() {
+        parent::__construct(4, $_SESSION['nbEssaisMax']);
+
         if (!isset($_SESSION['codeSecret'])) {
             $this->CreercodeSecret();
         } else {
             //Récupérer le code secret de la session
             $this->codeSecret = $_SESSION['codeSecret'];
         }
-
     }
 
     //Génerer la combinaison Ordi
-    private function CreercodeSecret(){
+    private function CreercodeSecret() {
         $this->codeSecret = [];
         $valeurs = range(1, 6);
         //Melange les valeurs du tableau
@@ -27,27 +24,12 @@ class MasterMind {
         $this->codeSecret = array_slice($valeurs, 0, $this->taillePlateau);
         $_SESSION['codeSecret'] = $this->codeSecret;
     }
-    //get Combinaison Ordi
-    public function getSecret()
-    {
+
+    // Méthode pour récupérer le code secret
+    public function getCodeSecret() {
         return $this->codeSecret;
     }
-
-    //la combinaison Joueur
-    public function setCodeJoueur($code){
-        $this->codeJoueur= $code;
-    }
-
-    //get Combinaison Joueur
-    public function getCodeJoueur()
-    {
-        return $this->codeJoueur;
-    }
-    //Get taille du plateau
-    public function getTaillePlateau() {
-        return $this->taillePlateau;
-    }
-
+    
     //Fonction qui prend en compte la combinaison ordi et joueur et renvoi le résultat
      public function verifierCombinaison() {
         $pionsRouges = 0;

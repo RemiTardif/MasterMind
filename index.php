@@ -5,18 +5,17 @@ session_start();
 // Rediriger vers la sélection de difficulté si elle n'est pas encore définie
 if (!isset($_SESSION['difficulte'])) {
     header("Location: home.php");
-    
 }
 
 // Créer un objet MasterMind et générer le code secret
 $mastermind = new MasterMind();
 
 //Définition des variables 
-$codeSecret = isset($_SESSION['codeSecret']) ? $_SESSION['codeSecret'] : [];
+$codeSecret = $mastermind->getCodeSecret();
 $essais = isset($_SESSION['essais']) ? $_SESSION['essais'] : [];
 $nbEssais = isset($_SESSION['nbEssais']) ? $_SESSION['nbEssais'] : 0;
 $difficulte = isset($_SESSION['difficulte']) ? $_SESSION['difficulte'] : null;
-$nbEssaisMax = isset($_SESSION['nbEssaisMax']) ? $_SESSION['nbEssaisMax'] : 10;
+$nbEssaisMax = $mastermind->getNbEssaisMax();
 
 $codeJoueur = [];
 $victoire = false;
@@ -25,28 +24,24 @@ $HideForm = false;
 
 //BOUTON VALIDER
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['codeJoueur'])) {
-    // Récupérer la combinaison du joueur
+
+    //Récupérer la combinaison du joueur
     $codeJoueur = array_map('intval', $_POST['codeJoueur']);
     $mastermind->setCodeJoueur($codeJoueur);
-    //Stocker la combinaison dans la variable de Session
-    $_SESSION['codeJoueur'] = $codeJoueur;
-
     //Appel de la méthode pour vérifier les deux codes
     $resultat = $mastermind->verifierCombinaison();
-
     // Ajouter l'essai au tableau des essais
+    $mastermind->ajouterEssai($codeJoueur, $resultat);
     $essais[] = ['codeJoueur' => $codeJoueur, 'resultat' => $resultat];
     $_SESSION['essais'] = $essais;
-
+    // $_SESSION['essais'] = $mastermind->getEssais();
     // Incrémenter le nombre d'essais
     $nbEssais++;
     $_SESSION['nbEssais'] = $nbEssais;
-    
     // Vérifier si le joueur a gagné
     if ($resultat['pionsBlancs'] == $mastermind->getTaillePlateau()) {
         $victoire = true;
     }
-        
     // Vérifier si le joueur a atteint le nombre maximum d'essais
     if ($nbEssais >= $nbEssaisMax) {
         $perdu = true;
